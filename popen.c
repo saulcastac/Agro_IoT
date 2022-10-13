@@ -6,7 +6,6 @@ int main(){
     lsOutput = popen("ls *.c","r");
     tomayInput = popen("./tomay", "w");
     int cont = 0;
-
     int BUFFER_SIZE=80;
     char buffer [BUFFER_SIZE];
 
