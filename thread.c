@@ -1,27 +1,30 @@
 #include <pthread.h>
 #include <stdio.h>
+#define NUM_THREADS 100
 
 typedef struct thread_data{
     int threadId;
     char name[20];
-    //..
-}ThreadData;
-typedef char caracter;
+} ThreadData;
+typedef char caracter; 
 
-void * holaMUndo(void *arg){
+void *holaMundo(void *arg){
     ThreadData *myData = (ThreadData *)arg;
-    printf("HOla desde el hilo y mi id es %d\n",myData->threadId);
+    printf("Hola desde el hilo y mi id es %d\n",myData->threadId);
     pthread_exit(NULL);
 }
 
 int main(){
-    for(int i = 0; i < 100; i++){
+    ThreadData threadData[NUM_THREADS];
+    for(int i = 0; i<NUM_THREADS; i++){
         ThreadData myData;
         pthread_t threadId;
-        myData.threadId = 1;
-        pthread_create(&threadId, NULL, holaMUndo,(void *) &myData);
+        threadData[i].threadId = i;
+        pthread_create(&threadId,NULL,holaMundo, (void *) &threadData[i]);
+        
     }
-    pthread_exit(NULL);
-    printf("NUNCA LLEGA\n");
-    return 0;
+    pthread_exit(NULL); 
+    printf("NUNCA LLEGA");
+
+
 }
